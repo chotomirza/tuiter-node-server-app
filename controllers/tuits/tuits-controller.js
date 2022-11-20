@@ -1,4 +1,5 @@
 import posts from "./tuits.js";
+// import dp_image from "./../../../tuiter-react-web-app/public/images/tesla.png"
 let tuits = posts;
 
 const createTuit = (req, res) => {
@@ -8,6 +9,7 @@ const createTuit = (req, res) => {
     newTuit.dislikes = 0;
     newTuit.liked = false;
     newTuit.disliked = false;
+    newTuit.image = "https://upload.wikimedia.org/wikipedia/en/thumb/3/32/Wendy%27s_full_logo_2012.svg/1200px-Wendy%27s_full_logo_2012.svg.png"; // is this working?
     tuits.push(newTuit);
     res.json(newTuit);
 }
