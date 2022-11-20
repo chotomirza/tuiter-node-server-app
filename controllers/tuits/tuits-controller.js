@@ -5,7 +5,9 @@ const createTuit = (req, res) => {
     const newTuit = req.body;
     newTuit._id = (new Date()).getTime() + '';
     newTuit.likes = 0;
+    newTuit.dislikes = 0;
     newTuit.liked = false;
+    newTuit.disliked = false;
     tuits.push(newTuit);
     res.json(newTuit);
 }
@@ -53,7 +55,7 @@ const deleteTuit = (req, res) => {
 
 export default (app) => {
     app.post('/api/tuits', createTuit);
-    app.get('/api/tuits', findTuits);
     app.put('/api/tuits/:tid', updateTuit);
+    app.get('/api/tuits', findTuits);
     app.delete('/api/tuits/:tid', deleteTuit);
 }
