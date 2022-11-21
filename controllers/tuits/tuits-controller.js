@@ -4,12 +4,24 @@ let tuits = posts;
 
 const createTuit = (req, res) => {
     const newTuit = req.body;
+
     newTuit._id = (new Date()).getTime() + '';
     newTuit.likes = 0;
     newTuit.dislikes = 0;
     newTuit.liked = false;
     newTuit.disliked = false;
-    newTuit.image = "https://upload.wikimedia.org/wikipedia/en/thumb/3/32/Wendy%27s_full_logo_2012.svg/1200px-Wendy%27s_full_logo_2012.svg.png"; // is this working?
+
+    newTuit.topic = "default tuit topic";
+    newTuit.username = "DefaultUser";
+    newTuit.handle = "@defaultHandle";
+    newTuit.image = "nasa_pic.jpg";
+    newTuit.time = "1h";
+    newTuit.title = "Default Title";
+    newTuit.tuit = "default tuit text";
+    newTuit.replies = 0;
+    newTuit.retuits = 0;
+
+    // newTuit.image = "https://upload.wikimedia.org/wikipedia/en/thumb/3/32/Wendy%27s_full_logo_2012.svg/1200px-Wendy%27s_full_logo_2012.svg.png"; // is this working?
     tuits.push(newTuit);
     res.json(newTuit);
 }
@@ -39,7 +51,7 @@ const updateTuit = (req, res) => {
     const tuitdIdToUpdate = req.params.tid;
     const updates = req.body;
     const tuitIndex = tuits.findIndex(
-        (t) => t._id === tuitdIdToUpdate)
+        (t) => t._id.toString() === tuitdIdToUpdate)
     tuits[tuitIndex] =
         {...tuits[tuitIndex], ...updates};
     res.sendStatus(200);
@@ -49,7 +61,7 @@ const updateTuit = (req, res) => {
 const deleteTuit = (req, res) => {
     const tuitIdToDelete = req.params['tid'];
     tuits = tuits.filter((twt) =>
-        twt._id !== tuitIdToDelete);
+        twt._id.toString() !== tuitIdToDelete);
     res.sendStatus(200);
 }
 
