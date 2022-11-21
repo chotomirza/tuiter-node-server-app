@@ -17,7 +17,7 @@ const createTuit = (req, res) => {
     newTuit.image = "nasa_pic.jpg";
     newTuit.time = "1h";
     newTuit.title = "Default Title";
-    newTuit.tuit = "default tuit text";
+    // newTuit.tuit = "default tuit text";
     newTuit.replies = 0;
     newTuit.retuits = 0;
 
