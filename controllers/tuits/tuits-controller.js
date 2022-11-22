@@ -24,6 +24,8 @@ const createTuit = (req, res) => {
     // newTuit.image = "https://upload.wikimedia.org/wikipedia/en/thumb/3/32/Wendy%27s_full_logo_2012.svg/1200px-Wendy%27s_full_logo_2012.svg.png"; // is this working?
     tuits.push(newTuit);
     res.json(newTuit);
+    // console.log((tuits));
+    // console.log(res);
 }
 
 const findTuits  = (req, res) => {
