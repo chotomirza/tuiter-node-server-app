@@ -1,11 +1,12 @@
-import posts from "./tuits.js";
+import * as tuitsDao from './tuits-dao.js'
+// import posts from "./tuits.js";
 // import dp_image from "./../../../tuiter-react-web-app/public/images/tesla.png"
-let tuits = posts;
+// let tuits = posts;
 
-const createTuit = (req, res) => {
+const createTuit = async (req, res) => {
     const newTuit = req.body;
 
-    newTuit._id = (new Date()).getTime() + '';
+    // newTuit._id = (new Date()).getTime() + '';
     newTuit.likes = 0;
     newTuit.dislikes = 0;
     newTuit.liked = false;
@@ -22,13 +23,18 @@ const createTuit = (req, res) => {
     newTuit.retuits = 0;
 
     // newTuit.image = "https://upload.wikimedia.org/wikipedia/en/thumb/3/32/Wendy%27s_full_logo_2012.svg/1200px-Wendy%27s_full_logo_2012.svg.png"; // is this working?
-    tuits.push(newTuit);
-    res.json(newTuit);
+    // tuits.push(newTuit);
+
+
+    const insertedTuit = await tuitsDao.createTuit(newTuit);
+    res.json(insertedTuit);
+
     // console.log((tuits));
     // console.log(res);
 }
 
-const findTuits  = (req, res) => {
+const findTuits  = async (req, res) => {
+    const tuits = await tuitsDao.findTuits()
     // const type = req.query.type
     // if(type) {
     //     const tuitsOfType = tuits
@@ -40,7 +46,7 @@ const findTuits  = (req, res) => {
 }
 
 
-const updateTuit = (req, res) => {
+const updateTuit = async (req, res) => {
     // const tuitId = req.params['tid'];
     // const updates = req.body;
     // tuits = tuits.map((twt) =>
@@ -52,19 +58,24 @@ const updateTuit = (req, res) => {
 
     const tuitdIdToUpdate = req.params.tid;
     const updates = req.body;
-    const tuitIndex = tuits.findIndex(
-        (t) => t._id.toString() === tuitdIdToUpdate)
-    tuits[tuitIndex] =
-        {...tuits[tuitIndex], ...updates};
-    res.sendStatus(200);
+    // const tuitIndex = tuits.findIndex(
+    //     (t) => t._id.toString() === tuitdIdToUpdate)
+    // tuits[tuitIndex] =
+    //     {...tuits[tuitIndex], ...updates};
+    // res.sendStatus(200);
+
+    const status = await tuitsDao.updateTuit(tuitIdToUpdate, updates);
+    res.json(status);
 }
 
 
-const deleteTuit = (req, res) => {
+const deleteTuit = async (req, res) => {
     const tuitIdToDelete = req.params['tid'];
-    tuits = tuits.filter((twt) =>
-        twt._id.toString() !== tuitIdToDelete);
-    res.sendStatus(200);
+    const status = await tuitsDao.deleteTuit(tuitIdToDelete);
+    // tuits = tuits.filter((twt) =>
+        // twt._id.toString() !== tuitIdToDelete);
+    // res.sendStatus(200);
+    res.json(status);
 }
 
 
